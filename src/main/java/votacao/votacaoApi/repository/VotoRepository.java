@@ -1,6 +1,6 @@
 package votacao.votacaoApi.repository;
 
-import votacao.votacaoApi.model.Voto
+import votacao.votacaoApi.model.Voto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
     public interface VotoRepository extends JpaRepository<Voto, Long> {
 
     }
-}
+
