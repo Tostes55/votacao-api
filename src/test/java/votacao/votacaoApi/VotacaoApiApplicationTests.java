@@ -1,4 +1,4 @@
-package votacao.votacaoapi;
+package votacao.votacaoApi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

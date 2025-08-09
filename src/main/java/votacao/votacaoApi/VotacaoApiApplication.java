@@ -1,4 +1,4 @@
-package votacao.votacaoapi;
+package votacao.votacaoApi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
