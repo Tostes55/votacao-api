@@ -1,0 +1,153 @@
+API de Votação
+
+* Cadastrar uma pauta
+* Abrir sessão de votação em uma pauta
+* Receber votos dos associados em pautas como SIM ou NAO
+* Contabilizar os resultados e dar o resultado da votação na pauta
+
+-----------------------------
+    //Pautas
+* Cadastrar Pauta
+
+--Dado que: Preciso cadastrar uma pauta nova para votação
+--E: Estou enviando uma solicitação de criação de uma nova pauta
+--Entao: Devo receber um aviso que a pauta foi cadastrada com sucesso.
+
+	POST cadastroPauta
+		#Exemplo de Imput
+		{
+			"tituloPauta":"Eleicao Diretor",
+			"descricaoPauta":"Pauta criada para eleicao da nova diretoria"
+		}
+		
+		#Exemplo de Output
+		{
+			"idPauta":1,
+			"status":"Pauta cadastrada com sucesso"
+		}
+
+* Consultar Pautas	
+
+--Dado que: Preciso consultas as pautas cadastradas
+--E: Estou enviando uma solicitação de consulta das pautas
+--Entao: Devo receber uma lista com as pautas cadastradas
+
+	GET consultarPautas
+		
+		#Exemplo de Output
+		{
+			"idPauta":1,
+			"descricaoPauta":"Pauta criada para eleicao da nova diretoria"
+		}
+	
+* Apagar Pautas
+
+--Dado que: Preciso remover uma pauta criada indevidamente
+--E: Estou enviando uma solicitação de remoção da pauta
+--Entao: Devo receber um aviso se a pauta foi apagada
+
+        DELETE deletarPautas
+		#Exemplo de Imput
+		{
+			"idPauta":1,
+			"motivoExclusao":"Descreva o motivo"
+		}
+
+
+        //SESSAO DE VOTACAO
+* Abrir sessão de votação em uma pauta
+
+--Dado que: Desejo iniciar a sessão de votação para uma pauta
+--E: Estou enviando uma solicitacao pra iniciar a sessao
+--Entao: Devo receber a mensagem que a sessao está aberta, informando a data de inicio e a data de término da votação
+
+        POST iniciarSessao
+        #Exemplo de Imput
+        {
+            "idPauta":1,
+            "idSessao":1,
+            "dataInicioSessao":"23-08-2025 13:06:00",
+            "dataFimSessao": "23-08-2025 13:07:00"
+        }
+
+        #Exemplo de Output
+
+        {
+            "idPauta":1,
+            "idSessao":1,
+            "descricaoPauta":"Pauta criada para eleicao da nova diretoria",
+            "dataInicioSessao": "23-08-2025 13:06:00",
+            "dataFimSessao": "23-08-2025 13:07:00",
+        }
+
+* Consultar sessoes abertas 
+
+--Dado que: Quero consultar as sessoes em aberto
+--E: Envio uma solicitação pra consultar as sessoes
+--Entao: Devo receber os detalhes da sessao e o status da sessao
+
+        GET consulltarSessoes
+        #Exemplo de Imput
+        {
+            "situacaoPauta":"EM_ABERTO",
+        }
+
+        #Exemplo de Output
+
+        {
+            "idPauta":1,
+            "idSessao":1,
+            "descricaoPauta":"Pauta criada para eleicao da nova diretoria",
+            "dataInicioSessao": "23-08-2025 13:06:00",
+            "dataFimSessao": "23-08-2025 13:07:00",
+            "situacaoPauta":"EM_ABERTO"
+        }
+
+            // VOTACAO
+
+*  Enviar Votos em uma sessao aberta
+
+--Dado que: Desejo votar em uma sessao
+--E: Estou enviando o meu voto
+--Entao: Devo receber a confirmação que meu voto foi realizado com sucesso
+
+        POST enviarVoto
+        #Exemplo de Imput
+        {
+            "idPauta":1,
+            "idSessao":1,
+            "cpfAssociao":"101.000.111-73",
+            "voto":"SIM"
+        }
+
+
+
+* Resultado da votação
+
+--Dado que: A sessão de votos terminou 
+--E: Quero saber o resultado da votacao de uma sessao
+--E: Envio uma solicitação pra saber o resultado da votação
+--E: A sessao já terminou o prazo pra votos
+--Entao: Devo concluir a votacao e receber os resultados dos votos e o resultado final da votação
+
+        GET obterResultadoVotacao
+        #Exemplo de Imput
+        {
+            "idPauta":1,
+            "idSessao":1
+        }
+
+        #Exemplo de Output
+        {
+            "idPauta":1,
+            "idSessao":1,
+            "statusSessao":"CONCLUIDA",
+            "votoAFavor":10,
+            "votosContra":5,
+            "resultadoFinal":"ELEITO"
+        }
+
+
+
+//Validar se o CPF  do associado é válido
+

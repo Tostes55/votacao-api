@@ -15,8 +15,4 @@ import java.util.stream.Collectors;
 @Service
 public class VotoService {
 
-    private final VotoRepository votoRepository;
-    public VotoService(VotoRepository votoRepository) {
-        this.votoRepository = votoRepository;
-    }
 }
