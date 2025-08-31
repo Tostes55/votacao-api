@@ -116,7 +116,7 @@ API de Votação
         {
             "idPauta":1,
             "idSessao":1,
-            "cpfAssociao":"101.000.111-73",
+            "cpfAssociado":"101.000.111-73",
             "voto":"SIM"
         }
 

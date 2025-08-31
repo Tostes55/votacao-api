@@ -1,13 +1,9 @@
 package votacao.votacaoApi.repository;
 
-import votacao.votacaoApi.model.Voto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import votacao.votacaoApi.model.Pauta;
 
-
-    @Repository
-    public interface VotoRepository extends JpaRepository<Voto, Long> {
-
-    }
-
-
+@Repository
+public interface PautaRepository extends JpaRepository<Pauta, Long> {
+}

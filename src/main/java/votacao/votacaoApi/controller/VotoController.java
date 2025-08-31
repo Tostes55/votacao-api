@@ -13,15 +13,17 @@ import java.util.List;
 @RestController
 @RequestMapping(value="/votos")
 public class VotoController {
+
     private final VotoService votoService;
+
     public VotoController(VotoService votoService) {
             this.votoService = votoService;
 
     }
 
     @GetMapping
-    public ResponseEntity<List<VotoDTO>> listarVotos(@RequestParam Integer id){
+    public List<VotoDTO> listarVotos(@RequestParam Integer id){
 
-        return null;
+        return votoService.buscarVotos;
     }
 }

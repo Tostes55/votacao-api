@@ -1,6 +1,4 @@
 package votacao.votacaoApi.DTO;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +6,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class VotoDTO {
-    private Long idVoto;
-    private String voto;
-    private String cpfAssociado;
+public class PautaDTO {
+
+    private Long idPauta;
+    private String statusPauta;
+    private String tituloPauta;
+    private String descricaoPauta;
+
 
 }
