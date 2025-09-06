@@ -3,13 +3,18 @@ package votacao.votacaoApi.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Voto")
+@Table(name = "voto")
 
 public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idVoto")
     private Long idVoto;
+
+    @Column(name="voto")
     private String voto;
+
+    @Column(name="cpfAssociado")
     private String cpfAssociado;
 
     public Voto(){

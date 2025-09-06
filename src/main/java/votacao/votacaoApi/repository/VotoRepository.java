@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
     @Repository
-    public interface VotoRepository extends JpaRepository<Voto, Long> {
+    public interface VotoRepository extends JpaRepository<Voto, String> {
 
     }
 
