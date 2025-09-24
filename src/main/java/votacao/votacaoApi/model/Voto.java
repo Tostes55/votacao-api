@@ -2,28 +2,30 @@ package votacao.votacaoApi.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "voto")
 
 public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idVoto")
+
     private Long idVoto;
 
-    @Column(name="voto")
-    private String voto;
-
-    @Column(name="cpfAssociado")
     private String cpfAssociado;
+    private String voto;
+    private LocalDateTime dataVoto;
 
     public Voto(){
+
     }
 
-    public Voto(Long idVoto, String voto, String cpfAssociado) {
+    public Voto(Long idVoto, String voto, String cpfAssociado, LocalDateTime dataVoto) {
         this.idVoto = idVoto;
         this.voto = voto;
         this.cpfAssociado = cpfAssociado;
+        this.dataVoto = dataVoto;
     }
 
     public Long getIdVoto() {
@@ -50,5 +52,11 @@ public class Voto {
         this.cpfAssociado = cpfAssociado;
     }
 
+    public LocalDateTime getDataVoto() {
+        return dataVoto;
+    }
 
+    public void setDataVoto(LocalDateTime dataVoto) {
+        this.dataVoto = dataVoto;
+    }
 }

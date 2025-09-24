@@ -1,10 +1,10 @@
 package votacao.votacaoApi.DTO;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -12,5 +12,7 @@ public class VotoDTO {
     private Long idVoto;
     private String voto;
     private String cpfAssociado;
+
+
 
 }
