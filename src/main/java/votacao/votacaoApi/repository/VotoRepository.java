@@ -11,6 +11,8 @@ import java.util.Optional;
     public interface VotoRepository extends JpaRepository<Voto, Long> {
 
         Optional<Voto> findByCpfAssociado(String cpfAssociado);
-    }
+
+    boolean existsByCpfAssociado(String cpfLimpo);
+}
 
 
