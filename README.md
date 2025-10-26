@@ -1,117 +1,98 @@
-# Votação
+# votacao-api
 
-## Objetivo
+### Instalações
 
-No cooperativismo, cada associado possui um voto e as decisões são tomadas em assembleias, por votação. Imagine que você deve criar uma solução para dispositivos móveis para gerenciar e participar dessas sessões de votação.
-Essa solução deve ser executada na nuvem e promover as seguintes funcionalidades através de uma API REST:
+- Java 21.0.8 LTS
+- Gradle 8.14.3
+- SO: Windows 11
 
-- Cadastrar uma nova pauta
-- Abrir uma sessão de votação em uma pauta (a sessão de votação deve ficar aberta por
-  um tempo determinado na chamada de abertura ou 1 minuto por default)
-- Receber votos dos associados em pautas (os votos são apenas 'Sim'/'Não'. Cada associado
-  é identificado por um id único e pode votar apenas uma vez por pauta)
-- Contabilizar os votos e dar o resultado da votação na pauta
+### Deploy localhost
 
-Para fins de exercício, a segurança das interfaces pode ser abstraída e qualquer chamada para as interfaces pode ser considerada como autorizada. A solução deve ser construída em java, usando Spring-boot, mas os frameworks e bibliotecas são de livre escolha (desde que não infrinja direitos de uso).
 
-É importante que as pautas e os votos sejam persistidos e que não sejam perdidos com o restart da aplicação.
+./gradlew bootRun
 
-O foco dessa avaliação é a comunicação entre o backend e o aplicativo mobile. Essa comunicação é feita através de mensagens no formato JSON, onde essas mensagens serão interpretadas pelo cliente para montar as telas onde o usuário vai interagir com o sistema. A aplicação cliente não faz parte da avaliação, apenas os componentes do servidor. O formato padrão dessas mensagens será detalhado no anexo 1.
+### Acesso ao banco
 
-## Como proceder
+Console: http://localhost:8080/h2-console  
+JDBC URL: jdbc:h2:file:./data/votacaodb  
+User:admin  
+Password:admin
 
-Por favor, **CLONE** o repositório e implemente sua solução, ao final, notifique a conclusão e envie o link do seu repositório clonado no GitHub, para que possamos analisar o código implementado.
+### Documentação e Teste da API
 
-Lembre de deixar todas as orientações necessárias para executar o seu código.
+- http://localhost:8080/swagger-ui/index.html#/
 
-### Tarefas bônus
+### Fluxograma
+https://www.figma.com/board/JJALfemn8tZQkkyvc99a6M/votacao-api?node-id=0-1&p=f&t=6a85kaO7aB14mAkJ-0
 
-- Tarefa Bônus 1 - Integração com sistemas externos
-  - Criar uma Facade/Client Fake que retorna aleátoriamente se um CPF recebido é válido ou não.
-  - Caso o CPF seja inválido, a API retornará o HTTP Status 404 (Not found). Você pode usar geradores de CPF para gerar CPFs válidos
-  - Caso o CPF seja válido, a API retornará se o usuário pode (ABLE_TO_VOTE) ou não pode (UNABLE_TO_VOTE) executar a operação. Essa operação retorna resultados aleatórios, portanto um mesmo CPF pode funcionar em um teste e não funcionar no outro.
+* O primeiro passo para iniciar o fluxo de uma votação na API seria criar uma pauta, 
+que pode ser criada no endpoint /api/pautas pelo método POST
+* Com uma pauta já cadastrada, o usuário pode abrir uma sessão de votos no endpoint /api/sessoes
+* Com a sessão aberta os associados já podem votar, no endpoint /api/votos
+* Após todos os votos finalizarem, a sessão pode ser encerrada manualmente, se desejar, ou 
+automaticamente após 60 minutos de duração.
+* Para consultar o resultado da votação, o usuario pode consultar pelo endpoint
+/api/resultados/sessao/{id}
 
-```
-// CPF Ok para votar
-{
-    "status": "ABLE_TO_VOTE
-}
-// CPF Nao Ok para votar - retornar 404 no client tb
-{
-    "status": "UNABLE_TO_VOTE
-}
-```
+------------
 
-Exemplos de retorno do serviço
+# 🗳️ Votação API
 
-### Tarefa Bônus 2 - Performance
+Uma API para gerenciamento de sessões de votação desenvolvida em Java.
 
-- Imagine que sua aplicação possa ser usada em cenários que existam centenas de
-  milhares de votos. Ela deve se comportar de maneira performática nesses
-  cenários
-- Testes de performance são uma boa maneira de garantir e observar como sua
-  aplicação se comporta
+## 🚀 Tecnologias Utilizadas
 
-### Tarefa Bônus 3 - Versionamento da API
+- ☕ **Java 21.0.8 LTS**
+- 🛠️ **Gradle 8.14.3**
+- 🗄️ **H2 Database**
+- 📚 **Spring Boot**
+- 📄 **Swagger/OpenAPI**
 
-○ Como você versionaria a API da sua aplicação? Que estratégia usar?
+## ⚙️ Pré-requisitos
 
-## O que será analisado
+- Java 21.0.8 LTS
+- Gradle 8.14.3
+- Windows 11 (ou sistema compatível)
 
-- Simplicidade no design da solução (evitar over engineering)
-- Organização do código
-- Arquitetura do projeto
-- Boas práticas de programação (manutenibilidade, legibilidade etc)
-- Possíveis bugs
-- Tratamento de erros e exceções
-- Explicação breve do porquê das escolhas tomadas durante o desenvolvimento da solução
-- Uso de testes automatizados e ferramentas de qualidade
-- Limpeza do código
-- Documentação do código e da API
-- Logs da aplicação
-- Mensagens e organização dos commits
+## 🏃‍♂️ Execução Local
 
-## Dicas
+bash
+>./gradlew bootRun
 
-- Teste bem sua solução, evite bugs
-- Deixe o domínio das URLs de callback passiveis de alteração via configuração, para facilitar
-  o teste tanto no emulador, quanto em dispositivos fisicos.
-  Observações importantes
-- Não inicie o teste sem sanar todas as dúvidas
-- Iremos executar a aplicação para testá-la, cuide com qualquer dependência externa e
-  deixe claro caso haja instruções especiais para execução do mesmo
-  Classificação da informação: Uso Interno
+## 🗄️ Acesso ao Banco de Dados
+Componente	Detalhes  
+🌐 Console H2:	http://localhost:8080/h2-console  
+🔗 JDBC URL:	jdbc:h2:file:./data/votacaodb  
+👤 Usuário:	admin  
+🔒 Senha:	admin
+## 📚 Documentação da API
+Swagger UI: http://localhost:8080/swagger-ui/index.html#/
 
-## Anexo 1
+## 📊 Fluxograma do Sistema
+🔗 Acesse o fluxograma completo: https://www.figma.com/board/JJALfemn8tZQkkyvc99a6M/votacao-api?node-id=0-1&p=f&t=6a85kaO7aB14mAkJ-0
 
-### Introdução
+## 🔄 Fluxo de Votação  
+1. 📝 Criar Pauta  
+Endpoint: POST /api/pautas  
+Cria uma nova pauta para votação. 
 
-A seguir serão detalhados os tipos de tela que o cliente mobile suporta, assim como os tipos de campos disponíveis para a interação do usuário.
 
-### Tipo de tela – FORMULARIO
+2. ⏰ Abrir Sessão  
+Endpoint: POST **/api/sessoes**  
+Abre uma sessão de votação para uma pauta específica.
 
-A tela do tipo FORMULARIO exibe uma coleção de campos (itens) e possui um ou dois botões de ação na parte inferior.
 
-O aplicativo envia uma requisição POST para a url informada e com o body definido pelo objeto dentro de cada botão quando o mesmo é acionado. Nos casos onde temos campos de entrada
-de dados na tela, os valores informados pelo usuário são adicionados ao corpo da requisição. Abaixo o exemplo da requisição que o aplicativo vai fazer quando o botão “Ação 1” for acionado:
+3. ✅ Registrar Votos  
+Endpoint: POST **/api/votos**  
+Permite que associados registrem seus votos durante a sessão aberta.
 
-```
-POST http://seudominio.com/ACAO1
-{
-    “campo1”: “valor1”,
-    “campo2”: 123,
-    “idCampoTexto”: “Texto”,
-    “idCampoNumerico: 999
-    “idCampoData”: “01/01/2000”
-}
-```
 
-Obs: o formato da url acima é meramente ilustrativo e não define qualquer padrão de formato.
+4. 🔒 Encerrar Sessão  
+Endpoint: PUT **/api/sessoes/{id}/fechar**  
+Automático: Encerra automaticamente após 60 minutos  
+Manual: Pode ser encerrada manualmente se necessário
 
-### Tipo de tela – SELECAO
 
-A tela do tipo SELECAO exibe uma lista de opções para que o usuário.
-
-O aplicativo envia uma requisição POST para a url informada e com o body definido pelo objeto dentro de cada item da lista de seleção, quando o mesmo é acionado, semelhando ao funcionamento dos botões da tela FORMULARIO.
-
-# desafio-votacao
+5. 📊 Consultar Resultados  
+Endpoint: GET **/api/resultados/sessao/{id}**  
+Consulta o resultado final da votação de uma sessão específica.
