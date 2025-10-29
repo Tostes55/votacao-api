@@ -32,7 +32,7 @@ Componente	Detalhes
 Swagger UI: http://localhost:8080/swagger-ui/index.html#/
 
 ## 📊 Fluxograma do Sistema
-🔗 Acesse o fluxograma completo: https://www.figma.com/board/JJALfemn8tZQkkyvc99a6M/votacao-api?node-id=0-1&p=f&t=6a85kaO7aB14mAkJ-0
+🔗 [Acesse o fluxograma completo](https://www.figma.com/board/JJALfemn8tZQkkyvc99a6M/votacao-api?node-id=0-1&p=f&t=6a85kaO7aB14mAkJ-0)
 
 ## 🔄 Fluxo de Votação  
 1. 📝 Criar Pauta  

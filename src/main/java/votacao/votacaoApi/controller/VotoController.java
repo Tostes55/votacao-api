@@ -53,16 +53,5 @@ public class VotoController {
 
         return new ResponseEntity<>("Voto apagado com sucesso", HttpStatus.OK);
     }
-
-
-
-
-/*    @RestController
-    @RequestMapping("/api/test")
-    public class TestController {
-        @GetMapping
-        public String hello() {
-            return "Hello Swagger";
-        }
-    }*/
+    
 }

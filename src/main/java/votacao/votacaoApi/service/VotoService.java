@@ -31,8 +31,8 @@ public class VotoService {
 
     public Voto cadastrarVoto(VotoDTO votoDTO) {
         // Validação básica do CPF
-        if (votoDTO.getCpfAssociado() == null || votoDTO.getCpfAssociado().trim().isEmpty()) {
-            throw new VotoException(MensagemErro.DADOS_INVALIDOS, "CPF não informado");
+        if(votoDTO.getCpfAssociado() == null || votoDTO.getCpfAssociado().trim().isEmpty() || "string".equals(votoDTO.getCpfAssociado())){
+            throw new VotoException(MensagemErro.DADOS_INVALIDOS, "CPF ou Voto não informado");
         }
 
         String cpfLimpo = votoDTO.getCpfAssociado().replaceAll("[^0-9]", "");

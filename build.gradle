@@ -34,7 +34,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
-
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -50,19 +51,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-bootRun {
-    doFirst {
-        // Aguarda a aplicação iniciar e abre o browser
-        Thread.start {
-            Thread.sleep(5000)
-            String os = System.getProperty("os.name").toLowerCase()
-            if (os.contains("mac")) {
-                "open http://localhost:8080/swagger-ui/index.html".execute()
-            } else {
-                println "📖 Acesse: http://localhost:8080/swagger-ui/index.html"
-            }
-        }
-    }
 }
