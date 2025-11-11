@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
 import votacao.votacaoApi.DTO.VotoDTO;
 import votacao.votacaoApi.Enum.MensagemErro;
+import votacao.votacaoApi.Enum.TipoVoto;
 import votacao.votacaoApi.exception.VotoException;
 import votacao.votacaoApi.model.Voto;
 import votacao.votacaoApi.repository.VotoRepository;
@@ -34,25 +35,27 @@ public class VotoService {
         if (votoDTO.getCpfAssociado() == null || votoDTO.getCpfAssociado().trim().isEmpty() || "string".equals(votoDTO.getCpfAssociado())) {
             throw new VotoException(MensagemErro.DADOS_INVALIDOS, "CPF ou Voto não informado");
         }
+        if (votoDTO.getVoto() != null) {
 
-        if ("SIM".equals(votoDTO.getVoto()) ||"NAO".equals(votoDTO.getVoto())) {
+            if (votoDTO.getVoto() == TipoVoto.SIM || votoDTO.getVoto() == TipoVoto.NAO) {
+                String cpfLimpo = votoDTO.getCpfAssociado().replaceAll("[^0-9]", "");
 
-            String cpfLimpo = votoDTO.getCpfAssociado().replaceAll("[^0-9]", "");
+                if (votoRepository.existsByCpfAssociado(cpfLimpo)) {
+                    throw new VotoException(MensagemErro.VOTO_JA_EXISTE, "CPF: " + cpfLimpo);
+                }
 
-            if (votoRepository.existsByCpfAssociado(cpfLimpo)) {
-                throw new VotoException(MensagemErro.VOTO_JA_EXISTE, "CPF: " + cpfLimpo);
+                Voto voto = converterVotoDTOParaVoto(votoDTO);
+                voto.setCpfAssociado(cpfLimpo);
+
+                Voto votoSalvo = votoRepository.save(voto);
+
+                logger.info("Voto cadastrado com sucesso! ID: {}, CPF: {}",
+                        votoSalvo.getIdVoto(), votoSalvo.getCpfAssociado());
+                return votoSalvo;
+            } else {
+                throw new VotoException(MensagemErro.DADOS_INVALIDOS, "Voto deve ser SIM ou NAO");
             }
-
-            Voto voto = converterVotoDTOParaVoto(votoDTO);
-            voto.setCpfAssociado(cpfLimpo);
-
-            Voto votoSalvo = votoRepository.save(voto);
-
-            logger.info("Voto cadastrado com sucesso! ID: {}, CPF: {}",
-                    votoSalvo.getIdVoto(), votoSalvo.getCpfAssociado());
-            return votoSalvo;
-        }else {
-            throw new VotoException(MensagemErro.DADOS_INVALIDOS, "Voto deve ser SIM ou NAO");}
+        }throw new VotoException(MensagemErro.DADOS_INVALIDOS, "Voto não informado");
     }
 
     public void apagarVoto(Long idVoto) {votoRepository.deleteById(idVoto);}
