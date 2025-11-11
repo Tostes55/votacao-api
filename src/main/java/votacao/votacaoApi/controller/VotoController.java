@@ -41,6 +41,7 @@ public class VotoController {
 
     @PostMapping(value = "/cadastrar")
     @Operation(description = "Cadastra um novo voto")
+    @ApiResponse(responseCode = "400", description = "Dados inválidos")
     public ResponseEntity<String> cadastraVoto(@RequestBody VotoDTO votoDTO) {
         votoService.cadastrarVoto(votoDTO);
 

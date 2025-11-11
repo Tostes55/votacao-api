@@ -31,25 +31,28 @@ public class VotoService {
 
     public Voto cadastrarVoto(VotoDTO votoDTO) {
         // Validação básica do CPF
-        if(votoDTO.getCpfAssociado() == null || votoDTO.getCpfAssociado().trim().isEmpty() || "string".equals(votoDTO.getCpfAssociado())){
+        if (votoDTO.getCpfAssociado() == null || votoDTO.getCpfAssociado().trim().isEmpty() || "string".equals(votoDTO.getCpfAssociado())) {
             throw new VotoException(MensagemErro.DADOS_INVALIDOS, "CPF ou Voto não informado");
         }
 
-        String cpfLimpo = votoDTO.getCpfAssociado().replaceAll("[^0-9]", "");
+        if ("SIM".equals(votoDTO.getVoto()) ||"NAO".equals(votoDTO.getVoto())) {
 
-        if (votoRepository.existsByCpfAssociado(cpfLimpo)) {
-            throw new VotoException(MensagemErro.VOTO_JA_EXISTE, "CPF: " + cpfLimpo);
-        }
+            String cpfLimpo = votoDTO.getCpfAssociado().replaceAll("[^0-9]", "");
 
-        Voto voto = converterVotoDTOParaVoto(votoDTO);
-        voto.setCpfAssociado(cpfLimpo);
+            if (votoRepository.existsByCpfAssociado(cpfLimpo)) {
+                throw new VotoException(MensagemErro.VOTO_JA_EXISTE, "CPF: " + cpfLimpo);
+            }
 
-        Voto votoSalvo = votoRepository.save(voto);
+            Voto voto = converterVotoDTOParaVoto(votoDTO);
+            voto.setCpfAssociado(cpfLimpo);
 
-        logger.info("Voto cadastrado com sucesso! ID: {}, CPF: {}",
-                votoSalvo.getIdVoto(), votoSalvo.getCpfAssociado());
+            Voto votoSalvo = votoRepository.save(voto);
 
-        return votoSalvo;
+            logger.info("Voto cadastrado com sucesso! ID: {}, CPF: {}",
+                    votoSalvo.getIdVoto(), votoSalvo.getCpfAssociado());
+            return votoSalvo;
+        }else {
+            throw new VotoException(MensagemErro.DADOS_INVALIDOS, "Voto deve ser SIM ou NAO");}
     }
 
     public void apagarVoto(Long idVoto) {votoRepository.deleteById(idVoto);}

@@ -1,6 +1,7 @@
 package votacao.votacaoApi.model;
 
 import jakarta.persistence.*;
+import votacao.votacaoApi.Enum.TipoVoto;
 
 import java.time.LocalDateTime;
 
@@ -12,16 +13,15 @@ public class Voto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long idVoto;
-
     private String cpfAssociado;
-    private String voto;
+    private TipoVoto voto;
     private LocalDateTime dataVoto;
 
     public Voto(){
 
     }
 
-    public Voto(Long idVoto, String voto, String cpfAssociado, LocalDateTime dataVoto) {
+    public Voto(Long idVoto, TipoVoto voto, String cpfAssociado, LocalDateTime dataVoto) {
         this.idVoto = idVoto;
         this.voto = voto;
         this.cpfAssociado = cpfAssociado;
@@ -32,7 +32,7 @@ public class Voto {
         return idVoto;
     }
 
-    public String getVoto() {
+    public TipoVoto getVoto() {
         return voto;
     }
 
@@ -44,7 +44,7 @@ public class Voto {
         this.idVoto = idVoto;
     }
 
-    public void setVoto(String voto) {
+    public void setVoto(TipoVoto voto) {
         this.voto = voto;
     }
 
