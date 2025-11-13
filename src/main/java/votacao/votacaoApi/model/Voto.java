@@ -14,7 +14,10 @@ public class Voto {
 
     private Long idVoto;
     private String cpfAssociado;
+
+    @Enumerated(EnumType.STRING)
     private TipoVoto voto;
+    
     private LocalDateTime dataVoto;
 
     public Voto(){

@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
 
         // Detecta se o erro foi causado pelo Enum TipoVoto
         if (ex.getMessage() != null && ex.getMessage().contains("TipoVoto")) {
-            message = "Valor inválido para o campo 'tipoVoto'. Os valores aceitos são: SIM ou NAO.";
+            message = "Valor inválido para o campo 'Voto'. Os valores aceitos são: SIM ou NAO.";
         }
 
         errorResponse.put("message", message);
