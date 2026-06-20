@@ -1,52 +1,29 @@
 package votacao.votacaoApi.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import votacao.votacaoApi.Enum.StatusPauta;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table (name = "Pauta")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pauta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPauta;
-    private String statusPauta;
+    private StatusPauta statusPauta;
+    /** Preenchidos ao abrir a sessão de votação; definem a janela em que votos são aceitos. */
+    private LocalDateTime inicioVotacao;
+    private LocalDateTime fimVotacao;
     private String tituloPauta;
     private String descricaoPauta;
-
-    public Pauta(){
-    }
-
-    public Long getIdPauta() {
-        return idPauta;
-    }
-
-    public void setIdPauta(Long idPauta) {
-        this.idPauta = idPauta;
-    }
-
-    public String getStatusPauta() {
-        return statusPauta;
-    }
-
-    public void setStatusPauta(String statusPauta) {
-        this.statusPauta = statusPauta;
-    }
-
-    public String getTituloPauta() {
-        return tituloPauta;
-    }
-
-    public void setTituloPauta(String tituloPauta) {
-        this.tituloPauta = tituloPauta;
-    }
-
-    public String getDescricaoPauta() {
-        return descricaoPauta;
-    }
-
-    public void setDescricaoPauta(String descricaoPauta) {
-        this.descricaoPauta = descricaoPauta;
-    }
-
+    private String categoriaPauta;
 
 
 

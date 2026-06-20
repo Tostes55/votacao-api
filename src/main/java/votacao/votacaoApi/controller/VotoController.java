@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import votacao.votacaoApi.model.Voto;
 import votacao.votacaoApi.repository.VotoRepository;
 import votacao.votacaoApi.service.VotoService;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @RestController
@@ -32,9 +31,7 @@ public class VotoController {
             @Content(schema = @Schema(implementation = VotoDTO.class))})
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao buscar os votos")
-
-
-    public Optional<Voto> buscarVotosPeloCpf(@PathVariable String cpfAssociado) {
+    public List<Voto> buscarVotosPeloCpf(@PathVariable String cpfAssociado) {
         return this.votoRepository.findByCpfAssociado(cpfAssociado);
     }
 
@@ -48,7 +45,7 @@ public class VotoController {
         return new ResponseEntity<>("Voto cadastrado com sucesso", HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/idVoto")
+    @DeleteMapping("/{idVoto}")
     public ResponseEntity<String> apagarVoto(@PathVariable Long idVoto) {
         votoService.apagarVoto(idVoto);
 

@@ -6,4 +6,6 @@ import votacao.votacaoApi.model.Pauta;
 
 @Repository
 public interface PautaRepository extends JpaRepository<Pauta, Long> {
+
+    boolean existsByTituloPauta(String tituloPauta);
 }

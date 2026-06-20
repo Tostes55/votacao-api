@@ -1,26 +1,25 @@
 package votacao.votacaoApi.DTO;
+
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import votacao.votacaoApi.Enum.StatusPauta;
-
 import java.time.LocalDateTime;
-
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PautaDTO {
+public class PautaRequestDTO {
 
-    @Enumerated(EnumType.ORDINAL)
-    private Long  idPauta;
-
-    private StatusPauta statusPauta;
     private LocalDateTime inicioVotacao;
     private LocalDateTime fimVotacao;
+
+    @Enumerated(EnumType.ORDINAL)
+    private StatusPauta statusPauta;
+
     private String tituloPauta;
     private String descricaoPauta;
     private String categoriaPauta;
-
-
 }

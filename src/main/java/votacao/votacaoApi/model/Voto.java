@@ -13,6 +13,11 @@ public class Voto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long idVoto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pauta")
+    private Pauta pauta;
+
     private String cpfAssociado;
 
     @Enumerated(EnumType.STRING)
@@ -24,8 +29,9 @@ public class Voto {
 
     }
 
-    public Voto(Long idVoto, TipoVoto voto, String cpfAssociado, LocalDateTime dataVoto) {
+    public Voto(Long idVoto, Pauta pauta, TipoVoto voto, String cpfAssociado, LocalDateTime dataVoto) {
         this.idVoto = idVoto;
+        this.pauta = pauta;
         this.voto = voto;
         this.cpfAssociado = cpfAssociado;
         this.dataVoto = dataVoto;
@@ -45,6 +51,14 @@ public class Voto {
 
     public void setIdVoto(Long idVoto) {
         this.idVoto = idVoto;
+    }
+
+    public Pauta getPauta() {
+        return pauta;
+    }
+
+    public void setPauta(Pauta pauta) {
+        this.pauta = pauta;
     }
 
     public void setVoto(TipoVoto voto) {

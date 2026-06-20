@@ -1,0 +1,12 @@
+.gradle
+build
+.git
+.github
+.idea
+*.iml
+.cursor
+data
+*.mv.db
+*.trace.db
+**/terminals/
+README.md
