@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class PautaDTO {
 
     @Enumerated(EnumType.ORDINAL)

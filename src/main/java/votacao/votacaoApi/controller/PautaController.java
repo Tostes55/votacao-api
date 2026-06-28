@@ -15,12 +15,14 @@ import votacao.votacaoApi.DTO.ResultadoVotacaoDTO;
 import votacao.votacaoApi.model.Pauta;
 import votacao.votacaoApi.service.PautaService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value ="/pauta")
 public class PautaController {
 
     @Autowired
-    private PautaService pautaService; // Injetando apenas o service! O repository fica encapsulado lá dentro.
+    private PautaService pautaService;
 
     @GetMapping(value = "/buscarPauta/{idPauta}")
     @Operation(description = "Busca pauta pelo ID")
@@ -32,6 +34,16 @@ public class PautaController {
         PautaDTO pautaDTO = pautaService.buscarPauta(idPauta);
         return ResponseEntity.ok(pautaDTO);
     }
+
+    @GetMapping(value = "/buscarPauta")
+    @Operation(description = "Busca todas as pautas")
+    @ApiResponse(responseCode = "200", description = "Consulta efetuada com sucesso", content = {
+            @Content(schema = @Schema(implementation = PautaDTO.class))})
+    public ResponseEntity<List<PautaDTO>> buscarTodasAsPautas(){
+        List<PautaDTO> pautas = this.pautaService.buscarTodasPautas();
+        return ResponseEntity.ok(pautas);
+    }
+
 
     @PostMapping(value="/cadastrar")
     @Operation(description = "Cadastre uma pauta nova")

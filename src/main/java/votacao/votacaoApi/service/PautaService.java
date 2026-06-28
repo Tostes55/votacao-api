@@ -20,6 +20,8 @@ import votacao.votacaoApi.repository.PautaRepository;
 import votacao.votacaoApi.repository.VotoRepository;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +41,14 @@ public class PautaService {
                 .orElseThrow(() -> new RuntimeException("Pauta não encontrada"));
 
         return pautaMapper.toDto(pauta);
+    }
+
+    public List<PautaDTO> buscarTodasPautas() {
+        List<Pauta> pautas = pautaRepository.findAll();
+
+        return pautas.stream()
+                .map(pautaMapper::toDto)
+                .toList();
     }
 
     public Pauta cadastrarPauta(PautaRequestDTO pautaRequestDTO) {
@@ -70,6 +80,10 @@ public class PautaService {
                 && pauta.getFimVotacao() != null
                 && agora.isBefore(pauta.getFimVotacao())) {
             throw new PautaException(MensagemErro.SESSAO_JA_EM_ANDAMENTO);
+        }
+
+        if(pauta.getStatusPauta() == StatusPauta.CONCLUIDA){
+            throw new PautaException(MensagemErro.PAUTA_JA_CONCLUIDA);
         }
 
         pauta.setInicioVotacao(agora);
@@ -110,9 +124,9 @@ public class PautaService {
         if (total == 0) {
             resultado = "SEM_VOTOS";
         } else if (votosSim > votosNao) {
-            resultado = "SIM";
+            resultado = "APROVADO";
         } else if (votosNao > votosSim) {
-            resultado = "NAO";
+            resultado = "REPROVADO";
         } else {
             resultado = "EMPATE";
         }
