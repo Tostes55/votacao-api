@@ -31,8 +31,8 @@ public class VotoController {
             @Content(schema = @Schema(implementation = VotoDTO.class))})
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao buscar os votos")
-    public List<Voto> buscarVotosPeloCpf(@PathVariable String cpfAssociado) {
-        return this.votoRepository.findByCpfAssociado(cpfAssociado);
+    public List<VotoDTO> buscarVotosPeloCpf(@PathVariable String cpfAssociado) {
+        return this.votoService.buscarVotos(cpfAssociado);
     }
 
 

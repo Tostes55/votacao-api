@@ -30,7 +30,7 @@ public class VotoService {
 
     private static final Logger logger = LoggerFactory.getLogger(VotoService.class);
 
-    public List<VotoDTO> buscarVotosPeloCpf(@RequestParam String cpfAssociado) {
+    public List<VotoDTO> buscarVotos(@RequestParam String cpfAssociado) {
         List<Voto> listaVotosEncontrados = votoRepository.findByCpfAssociado(cpfAssociado);
 
         return votoMapper.toVotoDTOs(listaVotosEncontrados);
