@@ -49,13 +49,14 @@ Abre uma sessão de votação para uma pauta específica.
 Endpoint: POST **/api/votos**  
 Permite que associados registrem seus votos durante a sessão aberta.
 
+4. 
 
-4. 🔒 Encerrar Sessão  
+5. 🔒 Encerrar Sessão  
 Endpoint: PUT **/api/sessoes/{id}/fechar**  
 Automático: Encerra automaticamente após 60 minutos  
 Manual: Pode ser encerrada manualmente se necessário
 
 
-5. 📊 Consultar Resultados  
+6. 📊 Consultar Resultados  
 Endpoint: GET **/api/resultados/sessao/{id}**  
 Consulta o resultado final da votação de uma sessão específica.

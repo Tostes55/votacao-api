@@ -11,7 +11,6 @@ import votacao.votacaoApi.DTO.PautaDTO;
 import votacao.votacaoApi.DTO.PautaRequestDTO;
 import votacao.votacaoApi.DTO.PautaResponseDTO;
 import votacao.votacaoApi.mappers.PautaMapper;
-import votacao.votacaoApi.mappers.SessaoMapper;
 import votacao.votacaoApi.mappers.VotoMapper;
 import votacao.votacaoApi.model.Pauta;
 import votacao.votacaoApi.repository.PautaRepository;
@@ -21,7 +20,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.util.AssertionErrors.*;
 
 
 class PautaServiceTest {
@@ -35,8 +33,6 @@ class PautaServiceTest {
     @Mock
     private  PautaMapper pautaMapper;
 
-    @Mock
-    private  SessaoMapper sessaoMapper;
 
     @Mock
     private  VotoMapper votoMapper;

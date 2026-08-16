@@ -13,14 +13,12 @@ import votacao.votacaoApi.Enum.StatusPauta;
 import votacao.votacaoApi.Enum.TipoVoto;
 import votacao.votacaoApi.exception.PautaException;
 import votacao.votacaoApi.mappers.PautaMapper;
-import votacao.votacaoApi.mappers.SessaoMapper;
 import votacao.votacaoApi.mappers.VotoMapper;
 import votacao.votacaoApi.model.Pauta;
 import votacao.votacaoApi.repository.PautaRepository;
 import votacao.votacaoApi.repository.VotoRepository;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,7 +28,6 @@ public class PautaService {
     private final PautaRepository pautaRepository;
     private final VotoRepository votoRepository;
     private final PautaMapper pautaMapper;
-    private final SessaoMapper sessaoMapper;
     private final VotoMapper votoMapper;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PautaService.class);
@@ -70,7 +67,7 @@ public class PautaService {
     }
 
     public Pauta abrirSessaoVotacao(Long idPauta, AbrirSessaoVotacaoDTO dto) {
-        int minutos = (dto!= null && dto.getDuracaoMinutos()>0 ? dto.getDuracaoMinutos():1);
+        int minutos = (dto!= null && dto.getDuracaoMinutos()>0 ? dto.getDuracaoMinutos():5);
 
         Pauta pauta = pautaRepository.findById(idPauta)
                 .orElseThrow(() -> new PautaException(MensagemErro.PAUTA_NAO_ENCONTRADA, "id: " + idPauta));
