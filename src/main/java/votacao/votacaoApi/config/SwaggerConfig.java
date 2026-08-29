@@ -1,4 +1,4 @@
-package votacao.votacaoApi;
+package votacao.votacaoApi.config;
 
 import org.springframework.context.annotation.Configuration;
 

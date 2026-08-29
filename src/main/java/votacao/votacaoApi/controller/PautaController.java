@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import votacao.votacaoApi.DTO.AbrirSessaoVotacaoDTO;
-import votacao.votacaoApi.DTO.PautaDTO;
-import votacao.votacaoApi.DTO.PautaRequestDTO;
-import votacao.votacaoApi.DTO.ResultadoVotacaoDTO;
+import votacao.votacaoApi.DTO.*;
 import votacao.votacaoApi.model.Pauta;
 import votacao.votacaoApi.service.PautaService;
 
@@ -27,20 +24,20 @@ public class PautaController {
     @GetMapping(value = "/buscarPauta/{idPauta}")
     @Operation(description = "Busca pauta pelo ID")
     @ApiResponse(responseCode = "200", description = "Consulta efetuada com sucesso", content = {
-            @Content(schema = @Schema(implementation = PautaDTO.class))})
+            @Content(schema = @Schema(implementation = PautaResponseDTO.class))})
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao buscar a pauta")
-    public ResponseEntity<PautaDTO> buscarPautaPeloId(@PathVariable Long idPauta){
-        PautaDTO pautaDTO = pautaService.buscarPauta(idPauta);
-        return ResponseEntity.ok(pautaDTO);
+    public ResponseEntity<PautaResponseDTO> buscarPautaPeloId(@PathVariable Long idPauta){
+        PautaResponseDTO pautaEncontrada = pautaService.buscarPauta(idPauta);
+        return ResponseEntity.ok(pautaEncontrada);
     }
 
     @GetMapping(value = "/buscarPauta")
     @Operation(description = "Busca todas as pautas")
     @ApiResponse(responseCode = "200", description = "Consulta efetuada com sucesso", content = {
             @Content(schema = @Schema(implementation = PautaDTO.class))})
-    public ResponseEntity<List<PautaDTO>> buscarTodasAsPautas(){
-        List<PautaDTO> pautas = this.pautaService.buscarTodasPautas();
+    public ResponseEntity<List<PautaResponseDTO>> buscarTodasAsPautas(){
+        List<PautaResponseDTO> pautas = this.pautaService.buscarTodasPautas();
         return ResponseEntity.ok(pautas);
     }
 
@@ -48,8 +45,8 @@ public class PautaController {
     @PostMapping(value="/cadastrar")
     @Operation(description = "Cadastre uma pauta nova")
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
-    public ResponseEntity<Pauta> cadastrarPauta(@RequestBody PautaRequestDTO pautaRequestDTO){
-        Pauta pautaCriada = pautaService.cadastrarPauta(pautaRequestDTO);
+    public ResponseEntity<PautaResponseDTO> cadastrarPauta(@RequestBody PautaRequestDTO pautaRequestDTO){
+        PautaResponseDTO pautaCriada = pautaService.cadastrarPauta(pautaRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(pautaCriada);
     }
 

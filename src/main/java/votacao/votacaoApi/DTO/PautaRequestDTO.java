@@ -17,10 +17,7 @@ public class PautaRequestDTO {
 
     private LocalDateTime inicioVotacao;
     private LocalDateTime fimVotacao;
-
-    @Enumerated(EnumType.ORDINAL)
     private StatusPauta statusPauta;
-
     private String tituloPauta;
     private String descricaoPauta;
     private String categoriaPauta;

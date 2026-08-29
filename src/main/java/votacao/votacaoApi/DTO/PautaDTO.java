@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Builder
 public class PautaDTO {
 
-    @Enumerated(EnumType.ORDINAL)
     private Long  idPauta;
 
     private StatusPauta statusPauta;

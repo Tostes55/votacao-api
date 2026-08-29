@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import votacao.votacaoApi.DTO.AbrirSessaoVotacaoDTO;
-import votacao.votacaoApi.DTO.PautaDTO;
-import votacao.votacaoApi.DTO.PautaRequestDTO;
-import votacao.votacaoApi.DTO.ResultadoVotacaoDTO;
+import votacao.votacaoApi.DTO.*;
 import votacao.votacaoApi.Enum.MensagemErro;
 import votacao.votacaoApi.Enum.StatusPauta;
 import votacao.votacaoApi.Enum.TipoVoto;
@@ -33,22 +30,22 @@ public class PautaService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PautaService.class);
 
 
-    public PautaDTO buscarPauta(Long idPauta) {
+    public PautaResponseDTO buscarPauta(Long idPauta) {
         Pauta pauta = pautaRepository.findById(idPauta)
                 .orElseThrow(() -> new RuntimeException("Pauta não encontrada"));
 
-        return pautaMapper.toDto(pauta);
+        return pautaMapper.toPautaResponseDTO(pauta);
     }
 
-    public List<PautaDTO> buscarTodasPautas() {
+    public List<PautaResponseDTO> buscarTodasPautas() {
         List<Pauta> pautas = pautaRepository.findAll();
 
         return pautas.stream()
-                .map(pautaMapper::toDto)
+                .map(pautaMapper::toPautaResponseDTO)
                 .toList();
     }
 
-    public Pauta cadastrarPauta(PautaRequestDTO pautaRequestDTO) {
+    public PautaResponseDTO cadastrarPauta(PautaRequestDTO pautaRequestDTO) {
         String titulo = pautaRequestDTO.getTituloPauta();
         if (titulo == null || titulo.isBlank()) {
             throw new PautaException(MensagemErro.DADOS_INVALIDOS, "Título da pauta é obrigatório");
@@ -59,7 +56,9 @@ public class PautaService {
 
         Pauta pauta = pautaMapper.toEntity(pautaRequestDTO);
 
-        return pautaRepository.save(pauta);
+        Pauta pautaSalva =  pautaRepository.save(pauta);
+
+        return pautaMapper.toPautaResponseDTO(pautaSalva);
     }
 
     public void apagarPauta(Long idPauta) {

@@ -15,9 +15,7 @@ import votacao.votacaoApi.Enum.StatusPauta;
 @Builder
 public class PautaResponseDTO {
 
-    @Enumerated(EnumType.ORDINAL)
     private Long idPauta;
-
     private StatusPauta statusPauta;
     private String tituloPauta;
     private String descricaoPauta;

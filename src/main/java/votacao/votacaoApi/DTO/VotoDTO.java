@@ -14,10 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class VotoDTO {
-    @Enumerated(EnumType.STRING)
     @NotNull(message = "O campo tipoVoto deve ser SIM ou NAO")
     private TipoVoto voto;
-    /** Identificador da pauta em que o associado está votando. */
     private Long idPauta;
     private String cpfAssociado;
     private LocalDateTime dataVoto;

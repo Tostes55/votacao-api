@@ -18,8 +18,10 @@ public class Pauta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPauta;
+
+    @Enumerated(EnumType.STRING)
     private StatusPauta statusPauta;
-    /** Preenchidos ao abrir a sessão de votação; definem a janela em que votos são aceitos. */
+
     private LocalDateTime inicioVotacao;
     private LocalDateTime fimVotacao;
     private String tituloPauta;
@@ -27,13 +29,15 @@ public class Pauta {
     private String categoriaPauta;
 
 
-    public Pauta(PautaRequestDTO requestDTO) {
-        this.statusPauta = requestDTO.getStatusPauta();
-        this.inicioVotacao = requestDTO.getInicioVotacao();
-        this.fimVotacao = requestDTO.getFimVotacao();
-        this.tituloPauta = requestDTO.getTituloPauta();
-        this.descricaoPauta = requestDTO.getDescricaoPauta();
-        this.categoriaPauta = requestDTO.getCategoriaPauta();
-    }
+    //TODO
+    //Remover o vinculo do DTO com a Entidade PAUTA, transformando utilizando o mapper
+//    public Pauta(PautaRequestDTO requestDTO) {
+//        this.statusPauta = requestDTO.getStatusPauta();
+//        this.inicioVotacao = requestDTO.getInicioVotacao();
+//        this.fimVotacao = requestDTO.getFimVotacao();
+//        this.tituloPauta = requestDTO.getTituloPauta();
+//        this.descricaoPauta = requestDTO.getDescricaoPauta();
+//        this.categoriaPauta = requestDTO.getCategoriaPauta();
+//    }
 
 }

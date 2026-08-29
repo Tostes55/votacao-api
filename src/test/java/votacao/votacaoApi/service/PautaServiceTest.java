@@ -31,11 +31,11 @@ class PautaServiceTest {
     private VotoRepository votoRepository;
 
     @Mock
-    private  PautaMapper pautaMapper;
+    private PautaMapper pautaMapper;
 
 
     @Mock
-    private  VotoMapper votoMapper;
+    private VotoMapper votoMapper;
 
     @Autowired
     @InjectMocks
@@ -65,9 +65,9 @@ class PautaServiceTest {
 
         when(pautaRepository.findById(1L)).thenReturn(Optional.of(pauta));
 
-        when(pautaMapper.toDto(pauta)).thenReturn(pautaDTO);
+        when(pautaMapper.toPautaResponseDTO(pauta)).thenReturn(pautaResponseDTO);
 
-        PautaDTO resultado = pautaService.buscarPauta(1L);
+        PautaResponseDTO resultado = pautaService.buscarPauta(1L);
 
         assertNotNull(resultado);
         assertEquals(1L, resultado.getIdPauta());
@@ -93,20 +93,23 @@ class PautaServiceTest {
         pautaSalva.setDescricaoPauta("descricao");
         pautaSalva.setTituloPauta("titulo");
 
+        PautaResponseDTO pautaResponseDTO = new PautaResponseDTO();
+        pautaResponseDTO.setIdPauta(1L);
+        pautaResponseDTO.setDescricaoPauta("descricao");
+        pautaResponseDTO.setTituloPauta("titulo");
+
         when(pautaRepository.existsByTituloPauta("titulo")).thenReturn(false);
-
         when(pautaMapper.toEntity(pautaRequestDTO)).thenReturn(pautaMapeada);
-
         when(pautaRepository.save(pautaMapeada)).thenReturn(pautaSalva);
 
-        Pauta resultado = this.pautaService.cadastrarPauta(pautaRequestDTO);
+        when(pautaMapper.toPautaResponseDTO(pautaSalva)).thenReturn(pautaResponseDTO);
+
+        PautaResponseDTO resultado = this.pautaService.cadastrarPauta(pautaRequestDTO);
 
         assertNotNull(resultado);
         assertEquals(1L, resultado.getIdPauta());
         assertEquals("descricao", resultado.getDescricaoPauta());
         assertEquals("titulo", resultado.getTituloPauta());
-
-
     }
 
     @Test
@@ -125,7 +128,7 @@ class PautaServiceTest {
         pautaSalva.setDescricaoPauta("descricao");
         pautaSalva.setTituloPauta("titulo");
 
-        Pauta resultado = this.pautaService.cadastrarPauta(pautaRequestDTO);
+        PautaResponseDTO resultado = this.pautaService.cadastrarPauta(pautaRequestDTO);
 
         this.pautaService.apagarPauta(1L);
 

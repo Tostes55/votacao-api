@@ -55,10 +55,16 @@ class PautaRepositoryTest {
 
     private Pauta createPauta(PautaRequestDTO pautaRequestDTO) {
 
-        Pauta newPauta = new Pauta(pautaRequestDTO);
+        Pauta newPauta = new Pauta();
+        newPauta.setTituloPauta(pautaRequestDTO.getTituloPauta());
+        newPauta.setDescricaoPauta(pautaRequestDTO.getDescricaoPauta());
+        newPauta.setCategoriaPauta(pautaRequestDTO.getCategoriaPauta());
+        newPauta.setStatusPauta(pautaRequestDTO.getStatusPauta());
+        newPauta.setInicioVotacao(pautaRequestDTO.getInicioVotacao());
+        newPauta.setFimVotacao(pautaRequestDTO.getFimVotacao());
+
         this.entityManager.persist(newPauta);
 
         return newPauta;
-
     }
 }
