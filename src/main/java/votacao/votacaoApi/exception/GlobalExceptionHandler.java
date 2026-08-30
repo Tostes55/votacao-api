@@ -41,7 +41,6 @@ public class GlobalExceptionHandler {
 
         String message = "Erro ao processar a requisição. Verifique os valores enviados.";
 
-        // Detecta se o erro foi causado pelo Enum TipoVoto
         if (ex.getMessage() != null && ex.getMessage().contains("TipoVoto")) {
             message = "Valor inválido para o campo 'Voto'. Os valores aceitos são: SIM ou NAO.";
         }

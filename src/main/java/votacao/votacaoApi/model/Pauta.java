@@ -29,15 +29,4 @@ public class Pauta {
     private String categoriaPauta;
 
 
-    //TODO
-    //Remover o vinculo do DTO com a Entidade PAUTA, transformando utilizando o mapper
-//    public Pauta(PautaRequestDTO requestDTO) {
-//        this.statusPauta = requestDTO.getStatusPauta();
-//        this.inicioVotacao = requestDTO.getInicioVotacao();
-//        this.fimVotacao = requestDTO.getFimVotacao();
-//        this.tituloPauta = requestDTO.getTituloPauta();
-//        this.descricaoPauta = requestDTO.getDescricaoPauta();
-//        this.categoriaPauta = requestDTO.getCategoriaPauta();
-//    }
-
 }

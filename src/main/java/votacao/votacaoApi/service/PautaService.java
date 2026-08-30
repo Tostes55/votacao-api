@@ -65,7 +65,7 @@ public class PautaService {
         pautaRepository.deleteById(idPauta);
     }
 
-    public Pauta abrirSessaoVotacao(Long idPauta, AbrirSessaoVotacaoDTO dto) {
+    public SessaoResponseDTO abrirSessaoVotacao(Long idPauta, AbrirSessaoVotacaoDTO dto) {
         int minutos = (dto!= null && dto.getDuracaoMinutos()>0 ? dto.getDuracaoMinutos():5);
 
         Pauta pauta = pautaRepository.findById(idPauta)
@@ -88,10 +88,13 @@ public class PautaService {
 
         Pauta salva = pautaRepository.save(pauta);
         LOGGER.info("Sessão de votação aberta para pauta {} até {}", idPauta, salva.getFimVotacao());
-        return salva;
+
+        SessaoResponseDTO sessaoResponse =  pautaMapper.toSessaoResponseDTO(salva);
+
+        return sessaoResponse;
     }
 
-    public Pauta fecharSessaoVotacao(Long idPauta) {
+    public SessaoResponseDTO fecharSessaoVotacao(Long idPauta) {
         Pauta pauta = pautaRepository.findById(idPauta)
                 .orElseThrow(() -> new PautaException(MensagemErro.PAUTA_NAO_ENCONTRADA, "id: " + idPauta));
 
@@ -105,7 +108,10 @@ public class PautaService {
         pauta.setStatusPauta(StatusPauta.CONCLUIDA);
         Pauta salva = pautaRepository.save(pauta);
         LOGGER.info("Sessão de votação encerrada (CONCLUIDA) para pauta {}", idPauta);
-        return salva;
+
+        SessaoResponseDTO sessaoResponse = pautaMapper.toSessaoResponseDTO(salva);
+
+        return sessaoResponse;
     }
 
     public ResultadoVotacaoDTO obterResultadoVotacao(Long idPauta) {

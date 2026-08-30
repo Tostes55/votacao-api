@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import votacao.votacaoApi.DTO.PautaRequestDTO;
 import votacao.votacaoApi.DTO.PautaResponseDTO;
+import votacao.votacaoApi.DTO.SessaoResponseDTO;
 import votacao.votacaoApi.model.Pauta;
 
 @Mapper(componentModel = "spring")
@@ -13,4 +14,7 @@ public interface PautaMapper {
 
     @Mapping(target = "idPauta", ignore = true)
     Pauta toEntity(PautaRequestDTO pautaRequestDTO);
+
+    SessaoResponseDTO toSessaoResponseDTO(Pauta pauta);
+
 }

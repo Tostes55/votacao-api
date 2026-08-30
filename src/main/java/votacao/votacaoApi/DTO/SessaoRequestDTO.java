@@ -9,12 +9,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 
-public class SessaoDTO {
+public class SessaoRequestDTO {
     private Long idSessao;
     private Date dataInicioSessao;
     private Date dataFimSessao;
-    private String resultadoSessao;
-    private int votosAFavor;
-    private int votosContra;
     private String resultadoFinal;
 }

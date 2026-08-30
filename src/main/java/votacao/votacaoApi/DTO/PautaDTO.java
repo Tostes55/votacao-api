@@ -1,6 +1,4 @@
 package votacao.votacaoApi.DTO;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.*;
 import votacao.votacaoApi.Enum.StatusPauta;
 

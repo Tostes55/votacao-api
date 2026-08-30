@@ -162,7 +162,7 @@ package votacao.votacaoApi.mappers;
 
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
-import votacao.votacaoApi.DTO.SessaoDTO;
+import votacao.votacaoApi.DTO.SessaoRequestDTO;
 import votacao.votacaoApi.model.Sessao;
 
 @Generated(
@@ -965,7 +965,7 @@ package votacao.votacaoApi.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import votacao.votacaoApi.DTO.SessaoDTO;
+import votacao.votacaoApi.DTO.SessaoRequestDTO;
 import votacao.votacaoApi.model.Sessao;
 
 @Mapper(componentModel = "spring")
