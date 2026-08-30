@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import votacao.votacaoApi.DTO.PautaRequestDTO;
 import votacao.votacaoApi.Enum.StatusPauta;
 
 import java.time.LocalDateTime;
@@ -27,6 +26,5 @@ public class Pauta {
     private String tituloPauta;
     private String descricaoPauta;
     private String categoriaPauta;
-
 
 }

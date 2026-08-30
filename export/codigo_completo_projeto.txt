@@ -30,7 +30,7 @@ import votacao.votacaoApi.model.Voto;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-20T11:52:12-0300",
+    date = "2026-08-30T09:04:58-0300",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.14.3.jar, environment: Java 17.0.18 (Homebrew)"
 )
 @Component
@@ -44,6 +44,10 @@ public class VotoMapperImpl implements VotoMapper {
 
         VotoDTO votoDTO = new VotoDTO();
 
+        votoDTO.setVoto( voto.getVoto() );
+        votoDTO.setCpfAssociado( voto.getCpfAssociado() );
+        votoDTO.setDataVoto( voto.getDataVoto() );
+
         return votoDTO;
     }
 
@@ -54,6 +58,10 @@ public class VotoMapperImpl implements VotoMapper {
         }
 
         Voto voto = new Voto();
+
+        voto.setVoto( votoDTO.getVoto() );
+        voto.setCpfAssociado( votoDTO.getCpfAssociado() );
+        voto.setDataVoto( votoDTO.getDataVoto() );
 
         return voto;
     }
@@ -94,51 +102,38 @@ ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/build/generated/sources/anno
 
 package votacao.votacaoApi.mappers;
 
+import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
-import votacao.votacaoApi.DTO.PautaDTO;
 import votacao.votacaoApi.DTO.PautaRequestDTO;
+import votacao.votacaoApi.DTO.PautaResponseDTO;
+import votacao.votacaoApi.DTO.SessaoResponseDTO;
+import votacao.votacaoApi.Enum.StatusPauta;
 import votacao.votacaoApi.model.Pauta;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-20T11:52:12-0300",
+    date = "2026-08-30T10:53:46-0300",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.14.3.jar, environment: Java 17.0.18 (Homebrew)"
 )
 @Component
 public class PautaMapperImpl implements PautaMapper {
 
     @Override
-    public PautaDTO toDto(Pauta pauta) {
+    public PautaResponseDTO toPautaResponseDTO(Pauta pauta) {
         if ( pauta == null ) {
             return null;
         }
 
-        PautaDTO pautaDTO = new PautaDTO();
+        PautaResponseDTO.PautaResponseDTOBuilder pautaResponseDTO = PautaResponseDTO.builder();
 
-        return pautaDTO;
-    }
+        pautaResponseDTO.idPauta( pauta.getIdPauta() );
+        pautaResponseDTO.statusPauta( pauta.getStatusPauta() );
+        pautaResponseDTO.tituloPauta( pauta.getTituloPauta() );
+        pautaResponseDTO.descricaoPauta( pauta.getDescricaoPauta() );
+        pautaResponseDTO.categoriaPauta( pauta.getCategoriaPauta() );
 
-    @Override
-    public Pauta toEntity(PautaDTO pautaDTO) {
-        if ( pautaDTO == null ) {
-            return null;
-        }
-
-        Pauta pauta = new Pauta();
-
-        return pauta;
-    }
-
-    @Override
-    public PautaRequestDTO toPautaRequestDTO(Pauta pauta) {
-        if ( pauta == null ) {
-            return null;
-        }
-
-        PautaRequestDTO pautaRequestDTO = new PautaRequestDTO();
-
-        return pautaRequestDTO;
+        return pautaResponseDTO.build();
     }
 
     @Override
@@ -149,50 +144,35 @@ public class PautaMapperImpl implements PautaMapper {
 
         Pauta pauta = new Pauta();
 
+        pauta.setStatusPauta( pautaRequestDTO.getStatusPauta() );
+        pauta.setInicioVotacao( pautaRequestDTO.getInicioVotacao() );
+        pauta.setFimVotacao( pautaRequestDTO.getFimVotacao() );
+        pauta.setTituloPauta( pautaRequestDTO.getTituloPauta() );
+        pauta.setDescricaoPauta( pautaRequestDTO.getDescricaoPauta() );
+        pauta.setCategoriaPauta( pautaRequestDTO.getCategoriaPauta() );
+
         return pauta;
     }
-}
-
-
-===================================================
-ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/build/generated/sources/annotationProcessor/java/main/votacao/votacaoApi/mappers/SessaoMapperImpl.java
-===================================================
-
-package votacao.votacaoApi.mappers;
-
-import javax.annotation.processing.Generated;
-import org.springframework.stereotype.Component;
-import votacao.votacaoApi.DTO.SessaoRequestDTO;
-import votacao.votacaoApi.model.Sessao;
-
-@Generated(
-    value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-06-20T11:52:12-0300",
-    comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.14.3.jar, environment: Java 17.0.18 (Homebrew)"
-)
-@Component
-public class SessaoMapperImpl implements SessaoMapper {
 
     @Override
-    public SessaoDTO toDto(Sessao sessao) {
-        if ( sessao == null ) {
+    public SessaoResponseDTO toSessaoResponseDTO(Pauta pauta) {
+        if ( pauta == null ) {
             return null;
         }
 
-        SessaoDTO sessaoDTO = new SessaoDTO();
+        Long idPauta = null;
+        StatusPauta statusPauta = null;
+        LocalDateTime inicioVotacao = null;
+        LocalDateTime fimVotacao = null;
 
-        return sessaoDTO;
-    }
+        idPauta = pauta.getIdPauta();
+        statusPauta = pauta.getStatusPauta();
+        inicioVotacao = pauta.getInicioVotacao();
+        fimVotacao = pauta.getFimVotacao();
 
-    @Override
-    public Sessao toEntity(SessaoDTO sessaoDTO) {
-        if ( sessaoDTO == null ) {
-            return null;
-        }
+        SessaoResponseDTO sessaoResponseDTO = new SessaoResponseDTO( idPauta, statusPauta, inicioVotacao, fimVotacao );
 
-        Sessao sessao = new Sessao();
-
-        return sessao;
+        return sessaoResponseDTO;
     }
 }
 
@@ -217,16 +197,265 @@ class VotacaoApiApplicationTests {
 
 
 ===================================================
+ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/test/java/votacao/votacaoApi/repository/PautaRepositoryTest.java
+===================================================
+
+package votacao.votacaoApi.repository;
+
+import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import votacao.votacaoApi.DTO.PautaRequestDTO;
+import votacao.votacaoApi.Enum.StatusPauta;
+import votacao.votacaoApi.model.Pauta;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+
+@DataJpaTest
+class PautaRepositoryTest {
+
+    @Autowired
+    EntityManager entityManager;
+
+    @Autowired
+    PautaRepository pautaRepository;
+
+    @Test
+    @DisplayName("Deve Retornar que a pauta existe pelo Titulo")
+    void existsByTituloPautaIsTrue() {
+
+        String tituloPauta = "tituloPauta";
+
+        PautaRequestDTO dto = new PautaRequestDTO();
+         dto.setTituloPauta(tituloPauta);
+         dto.setCategoriaPauta("Categoria Pauta");
+         dto.setStatusPauta(StatusPauta.RASCUNHO);
+
+         this.createPauta(dto);
+
+        Boolean result = this.pautaRepository.existsByTituloPauta(tituloPauta);
+
+        assertThat(result).isTrue();
+
+    }
+
+    @Test
+    @DisplayName("Não deve Retornar que a pauta existe pelo Titulo")
+    void existsByTituloPautaIsFalse() {
+
+        String tituloPauta = "tituloPauta";
+
+
+        Boolean result = this.pautaRepository.existsByTituloPauta(tituloPauta);
+
+        assertThat(result).isFalse();
+
+    }
+
+    private Pauta createPauta(PautaRequestDTO pautaRequestDTO) {
+
+        Pauta newPauta = new Pauta();
+        newPauta.setTituloPauta(pautaRequestDTO.getTituloPauta());
+        newPauta.setDescricaoPauta(pautaRequestDTO.getDescricaoPauta());
+        newPauta.setCategoriaPauta(pautaRequestDTO.getCategoriaPauta());
+        newPauta.setStatusPauta(pautaRequestDTO.getStatusPauta());
+        newPauta.setInicioVotacao(pautaRequestDTO.getInicioVotacao());
+        newPauta.setFimVotacao(pautaRequestDTO.getFimVotacao());
+
+        this.entityManager.persist(newPauta);
+
+        return newPauta;
+    }
+}
+
+===================================================
+ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/test/java/votacao/votacaoApi/controller/PautaControllerTest.java
+===================================================
+
+package votacao.votacaoApi.controller;
+
+
+class PautaControllerTest {
+
+}
+
+===================================================
+ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/test/java/votacao/votacaoApi/service/PautaServiceTest.java
+===================================================
+
+package votacao.votacaoApi.service;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import votacao.votacaoApi.DTO.PautaDTO;
+import votacao.votacaoApi.DTO.PautaRequestDTO;
+import votacao.votacaoApi.DTO.PautaResponseDTO;
+import votacao.votacaoApi.mappers.PautaMapper;
+import votacao.votacaoApi.mappers.VotoMapper;
+import votacao.votacaoApi.model.Pauta;
+import votacao.votacaoApi.repository.PautaRepository;
+import votacao.votacaoApi.repository.VotoRepository;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+
+class PautaServiceTest {
+
+    @Mock
+    private PautaRepository pautaRepository;
+
+    @Mock
+    private VotoRepository votoRepository;
+
+    @Mock
+    private PautaMapper pautaMapper;
+
+
+    @Mock
+    private VotoMapper votoMapper;
+
+    @Autowired
+    @InjectMocks
+    private PautaService pautaService;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    @DisplayName("Deve buscar uma pauta")
+    void buscarPautaPeloId() {
+
+        Pauta pauta = new Pauta();
+        pauta.setIdPauta(1L);
+        pauta.setDescricaoPauta("descricao");
+
+
+        PautaResponseDTO pautaResponseDTO = new PautaResponseDTO();
+        pautaResponseDTO.setIdPauta(1L);
+        pautaResponseDTO.setDescricaoPauta("descricao");
+
+        PautaDTO pautaDTO = new PautaDTO();
+        pautaDTO.setIdPauta(1L);
+        pautaDTO.setDescricaoPauta("descricao");
+
+        when(pautaRepository.findById(1L)).thenReturn(Optional.of(pauta));
+
+        when(pautaMapper.toPautaResponseDTO(pauta)).thenReturn(pautaResponseDTO);
+
+        PautaResponseDTO resultado = pautaService.buscarPauta(1L);
+
+        assertNotNull(resultado);
+        assertEquals(1L, resultado.getIdPauta());
+        assertEquals("descricao", resultado.getDescricaoPauta());
+
+
+    }
+
+    @Test
+    @DisplayName("Deve cadastrar uma pauta")
+    void cadastrarPauta() {
+
+        PautaRequestDTO pautaRequestDTO = new PautaRequestDTO();
+        pautaRequestDTO.setDescricaoPauta("descricao");
+        pautaRequestDTO.setTituloPauta("titulo");
+
+        Pauta pautaMapeada = new Pauta();
+        pautaMapeada.setDescricaoPauta("descricao");
+        pautaMapeada.setTituloPauta("titulo");
+
+        Pauta pautaSalva = new Pauta();
+        pautaSalva.setIdPauta(1L);
+        pautaSalva.setDescricaoPauta("descricao");
+        pautaSalva.setTituloPauta("titulo");
+
+        PautaResponseDTO pautaResponseDTO = new PautaResponseDTO();
+        pautaResponseDTO.setIdPauta(1L);
+        pautaResponseDTO.setDescricaoPauta("descricao");
+        pautaResponseDTO.setTituloPauta("titulo");
+
+        when(pautaRepository.existsByTituloPauta("titulo")).thenReturn(false);
+        when(pautaMapper.toEntity(pautaRequestDTO)).thenReturn(pautaMapeada);
+        when(pautaRepository.save(pautaMapeada)).thenReturn(pautaSalva);
+
+        when(pautaMapper.toPautaResponseDTO(pautaSalva)).thenReturn(pautaResponseDTO);
+
+        PautaResponseDTO resultado = this.pautaService.cadastrarPauta(pautaRequestDTO);
+
+        assertNotNull(resultado);
+        assertEquals(1L, resultado.getIdPauta());
+        assertEquals("descricao", resultado.getDescricaoPauta());
+        assertEquals("titulo", resultado.getTituloPauta());
+    }
+
+    @Test
+    void apagarPauta() {
+
+        PautaRequestDTO pautaRequestDTO = new PautaRequestDTO();
+        pautaRequestDTO.setDescricaoPauta("descricao");
+        pautaRequestDTO.setTituloPauta("titulo");
+
+        Pauta pautaMapeada = new Pauta();
+        pautaMapeada.setDescricaoPauta("descricao");
+        pautaMapeada.setTituloPauta("titulo");
+
+        Pauta pautaSalva = new Pauta();
+        pautaSalva.setIdPauta(1L);
+        pautaSalva.setDescricaoPauta("descricao");
+        pautaSalva.setTituloPauta("titulo");
+
+        PautaResponseDTO resultado = this.pautaService.cadastrarPauta(pautaRequestDTO);
+
+        this.pautaService.apagarPauta(1L);
+
+        when(pautaRepository.existsByTituloPauta("titulo")).thenReturn(true);
+
+        when(pautaMapper.toEntity(pautaRequestDTO)).thenReturn(pautaMapeada);
+
+        when(pautaRepository.save(pautaMapeada)).thenReturn(pautaSalva);
+
+        Long idExistente = 1L;
+
+        verify(pautaRepository, times(1)).deleteById(idExistente);
+
+
+    }
+
+    @Test
+    void abrirSessaoVotacao() {
+    }
+
+    @Test
+    void fecharSessaoVotacao() {
+    }
+
+    @Test
+    void obterResultadoVotacao() {
+    }
+}
+
+===================================================
 ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/DTO/VotoDTO.java
 ===================================================
 
 package votacao.votacaoApi.DTO;
 
-
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
 import votacao.votacaoApi.Enum.TipoVoto;
 
 import java.time.LocalDateTime;
@@ -236,15 +465,47 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class VotoDTO {
-    @Enumerated(EnumType.STRING)
     @NotNull(message = "O campo tipoVoto deve ser SIM ou NAO")
     private TipoVoto voto;
-    /** Identificador da pauta em que o associado está votando. */
+
+    @NotNull
     private Long idPauta;
+    
+    @CPF(message = "Informe um CPF Válido")
     private String cpfAssociado;
+    
+    @DateTimeFormat(iso =  DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dataVoto;
 
 
+}
+
+
+===================================================
+ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/DTO/SessaoResponseDTO.java
+===================================================
+
+package votacao.votacaoApi.DTO;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import votacao.votacaoApi.Enum.StatusPauta;
+
+import java.time.LocalDateTime;
+
+@Data
+@AllArgsConstructor
+public class SessaoResponseDTO {
+
+    private Long idPauta;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPauta statusPauta;
+
+    private LocalDateTime inicioVotacao;
+    private LocalDateTime fimVotacao;
 }
 
 
@@ -253,8 +514,6 @@ ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votaca
 ===================================================
 
 package votacao.votacaoApi.DTO;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.*;
 import votacao.votacaoApi.Enum.StatusPauta;
 
@@ -264,9 +523,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class PautaDTO {
 
-    @Enumerated(EnumType.ORDINAL)
     private Long  idPauta;
 
     private StatusPauta statusPauta;
@@ -285,26 +544,32 @@ ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votaca
 
 package votacao.votacaoApi.DTO;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import votacao.votacaoApi.Enum.StatusPauta;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class PautaRequestDTO {
 
+    @DateTimeFormat(iso =  DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime inicioVotacao;
-    private LocalDateTime fimVotacao;
 
-    @Enumerated(EnumType.ORDINAL)
+    @DateTimeFormat(iso =  DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime fimVotacao;
     private StatusPauta statusPauta;
 
+    @NotNull
     private String tituloPauta;
+
+    @NotNull
     private String descricaoPauta;
     private String categoriaPauta;
 }
@@ -315,10 +580,8 @@ ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votaca
 
 package votacao.votacaoApi.DTO;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import votacao.votacaoApi.Enum.StatusPauta;
@@ -326,12 +589,10 @@ import votacao.votacaoApi.Enum.StatusPauta;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-
+@Builder
 public class PautaResponseDTO {
 
-    @Enumerated(EnumType.ORDINAL)
-    private Id idPauta;
-
+    private Long idPauta;
     private StatusPauta statusPauta;
     private String tituloPauta;
     private String descricaoPauta;
@@ -381,7 +642,26 @@ public class ResultadoVotacaoDTO {
 
 
 ===================================================
-ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/DTO/SessaoDTO.java
+ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/DTO/ErroValidacaoDTO.java
+===================================================
+
+package votacao.votacaoApi.DTO;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class ErroValidacaoDTO {
+
+    private String campo;
+    private String mensagem;
+
+}
+
+
+===================================================
+ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/DTO/SessaoRequestDTO.java
 ===================================================
 
 package votacao.votacaoApi.DTO;
@@ -395,43 +675,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 
-public class SessaoDTO {
+public class SessaoRequestDTO {
     private Long idSessao;
     private Date dataInicioSessao;
     private Date dataFimSessao;
-    private String resultadoSessao;
-    private int votosAFavor;
-    private int votosContra;
     private String resultadoFinal;
-}
-
-
-===================================================
-ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/DTO/AssociadoDTO.java
-===================================================
-
-package votacao.votacaoApi.DTO;
-
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CPF;
-
-import java.util.UUID;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class AssociadoDTO {
-    @Enumerated(EnumType.ORDINAL)
-    private UUID idAssociado;
-    private String nome;
-    @CPF
-    private String cpf;
-    private String email;
-    private Boolean ativo;
 }
 
 
@@ -480,23 +728,6 @@ public interface PautaRepository extends JpaRepository<Pauta, Long> {
 
 
 ===================================================
-ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/repository/SessaoRepository.java
-===================================================
-
-package votacao.votacaoApi.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import votacao.votacaoApi.model.Sessao;
-import votacao.votacaoApi.model.Voto;
-
-@Repository
-    public interface SessaoRepository extends JpaRepository<Sessao, Long> {
-
-}
-
-
-===================================================
 ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/VotacaoApiApplication.java
 ===================================================
 
@@ -514,6 +745,19 @@ public class VotacaoApiApplication {
 
 }
 
+
+===================================================
+ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/config/SwaggerConfig.java
+===================================================
+
+package votacao.votacaoApi.config;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SwaggerConfig {
+
+}
 
 ===================================================
 ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/Enum/StatusPauta.java
@@ -603,12 +847,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import votacao.votacaoApi.DTO.VotoDTO;
-import votacao.votacaoApi.model.Voto;
 import votacao.votacaoApi.repository.VotoRepository;
 import votacao.votacaoApi.service.VotoService;
 
@@ -630,24 +874,22 @@ public class VotoController {
             @Content(schema = @Schema(implementation = VotoDTO.class))})
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao buscar os votos")
-
-
-    public List<Voto> buscarVotosPeloCpf(@@RequestParam String cpfAssociado) {
-        return this.votoRepository.findByCpfAssociado(cpfAssociado);
+    public List<VotoDTO> buscarVotosPeloCpf(@Valid @PathVariable String cpfAssociado) {
+        return this.votoService.buscarVotos(cpfAssociado);
     }
 
 
     @PostMapping(value = "/cadastrar")
     @Operation(description = "Cadastra um novo voto")
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
-    public ResponseEntity<String> cadastraVoto(@RequestBody VotoDTO votoDTO) {
+    public ResponseEntity<String> cadastraVoto(@Valid @RequestBody VotoDTO votoDTO) {
         votoService.cadastrarVoto(votoDTO);
 
         return new ResponseEntity<>("Voto cadastrado com sucesso", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{idVoto}")
-    public ResponseEntity<String> apagarVoto(@PathVariable Long idVoto) {
+    public ResponseEntity<String> apagarVoto(@Valid @PathVariable Long idVoto) {
         votoService.apagarVoto(idVoto);
 
         return new ResponseEntity<>("Voto apagado com sucesso", HttpStatus.OK);
@@ -665,40 +907,50 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import votacao.votacaoApi.DTO.AbrirSessaoVotacaoDTO;
-import votacao.votacaoApi.DTO.PautaDTO;
-import votacao.votacaoApi.DTO.PautaRequestDTO;
-import votacao.votacaoApi.DTO.ResultadoVotacaoDTO;
+import votacao.votacaoApi.DTO.*;
 import votacao.votacaoApi.model.Pauta;
 import votacao.votacaoApi.service.PautaService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value ="/pauta")
 public class PautaController {
 
     @Autowired
-    private PautaService pautaService; // Injetando apenas o service! O repository fica encapsulado lá dentro.
+    private PautaService pautaService;
 
     @GetMapping(value = "/buscarPauta/{idPauta}")
     @Operation(description = "Busca pauta pelo ID")
     @ApiResponse(responseCode = "200", description = "Consulta efetuada com sucesso", content = {
-            @Content(schema = @Schema(implementation = PautaDTO.class))})
+            @Content(schema = @Schema(implementation = PautaResponseDTO.class))})
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao buscar a pauta")
-    public ResponseEntity<PautaDTO> buscarPautaPeloId(@PathVariable Long idPauta){
-        PautaDTO pautaDTO = pautaService.buscarPauta(idPauta);
-        return ResponseEntity.ok(pautaDTO);
+    public ResponseEntity<PautaResponseDTO> buscarPautaPeloId(@Valid @PathVariable Long idPauta){
+        PautaResponseDTO pautaEncontrada = pautaService.buscarPauta(idPauta);
+        return ResponseEntity.ok(pautaEncontrada);
     }
+
+    @GetMapping(value = "/buscarPauta")
+    @Operation(description = "Busca todas as pautas")
+    @ApiResponse(responseCode = "200", description = "Consulta efetuada com sucesso", content = {
+            @Content(schema = @Schema(implementation = PautaDTO.class))})
+    public ResponseEntity<List<PautaResponseDTO>> buscarTodasAsPautas(){
+        List<PautaResponseDTO> pautas = this.pautaService.buscarTodasPautas();
+        return ResponseEntity.ok(pautas);
+    }
+
 
     @PostMapping(value="/cadastrar")
     @Operation(description = "Cadastre uma pauta nova")
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
-    public ResponseEntity<Pauta> cadastrarPauta(@RequestBody PautaRequestDTO pautaRequestDTO){
-        Pauta pautaCriada = pautaService.cadastrarPauta(pautaRequestDTO);
+    public ResponseEntity<PautaResponseDTO> cadastrarPauta(@Valid @RequestBody PautaRequestDTO pautaRequestDTO){
+        PautaResponseDTO pautaCriada = pautaService.cadastrarPauta(pautaRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(pautaCriada);
     }
 
@@ -706,7 +958,7 @@ public class PautaController {
     @Operation(description = "Apuração: totais de SIM/NAO e resultado da votação nesta pauta")
     @ApiResponse(responseCode = "200", description = "Resultado calculado")
     @ApiResponse(responseCode = "400", description = "Pauta não encontrada")
-    public ResponseEntity<ResultadoVotacaoDTO> resultadoVotacao(@PathVariable Long idPauta) {
+    public ResponseEntity<ResultadoVotacaoDTO> resultadoVotacao(@Valid @PathVariable Long idPauta) {
         return ResponseEntity.ok(pautaService.obterResultadoVotacao(idPauta));
     }
 
@@ -714,39 +966,27 @@ public class PautaController {
     @Operation(description = "Abre a sessão de votação com duração em minutos (após isso novos votos são recusados)")
     @ApiResponse(responseCode = "200", description = "Sessão aberta")
     @ApiResponse(responseCode = "400", description = "Dados inválidos ou sessão já ativa")
-    public ResponseEntity<Pauta> abrirSessaoVotacao(
+    public ResponseEntity<SessaoResponseDTO> abrirSessaoVotacao(
+            @Valid
             @PathVariable Long idPauta,
             @RequestBody AbrirSessaoVotacaoDTO body) {
-        Pauta pauta = pautaService.abrirSessaoVotacao(idPauta, body);
-        return ResponseEntity.ok(pauta);
+        SessaoResponseDTO sessaoVotacao = pautaService.abrirSessaoVotacao(idPauta, body);
+        return ResponseEntity.ok(sessaoVotacao);
     }
 
     @PostMapping("/{idPauta}/sessao/fechar")
     @Operation(description = "Encerra a votação e define a pauta como CONCLUIDA (antes do fim do prazo, se desejado)")
     @ApiResponse(responseCode = "200", description = "Sessão encerrada")
     @ApiResponse(responseCode = "400", description = "Pauta não encontrada ou sessão não está em andamento")
-    public ResponseEntity<Pauta> fecharSessaoVotacao(@PathVariable Long idPauta) {
+    public ResponseEntity<SessaoResponseDTO> fecharSessaoVotacao(@Valid @PathVariable Long idPauta) {
         return ResponseEntity.ok(pautaService.fecharSessaoVotacao(idPauta));
     }
 
     @DeleteMapping("/{idPauta}")
-    public ResponseEntity<String> deletarPauta(@PathVariable Long idPauta) {
+    public ResponseEntity<String> deletarPauta(@Valid @PathVariable Long idPauta) {
         pautaService.apagarPauta(idPauta);
         return new ResponseEntity<>("Pauta apagada com sucesso", HttpStatus.OK);
     }
-}
-
-===================================================
-ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/SwaggerConfig.java
-===================================================
-
-package votacao.votacaoApi;
-
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class SwaggerConfig {
-
 }
 
 ===================================================
@@ -835,93 +1075,6 @@ public class Voto {
 
 
 ===================================================
-ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/model/Sessao.java
-===================================================
-
-package votacao.votacaoApi.model;
-
-import jakarta.persistence.*;
-
-import java.util.Date;
-
-@Entity
-@Table(name = "Sessao")
-public class Sessao {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idSessao;
-    private Date  dataInicioSessao;
-    private Date dataFimSessao;
-    private String resultadoSessao;
-    private int votosAFavor;
-    private int votosContra;
-    private String resultadoFinal;
-
-    public Sessao(){
-    }
-
-    public Long getIdSessao() {
-        return idSessao;
-    }
-
-    public void setIdSessao(Long idSessao) {
-        this.idSessao = idSessao;
-    }
-
-    public Date getDataInicioSessao() {
-        return dataInicioSessao;
-    }
-
-    public void setDataInicioSessao(Date dataInicioSessao) {
-        this.dataInicioSessao = dataInicioSessao;
-    }
-
-    public Date getDataFimSessao() {
-        return dataFimSessao;
-    }
-
-    public void setDataFimSessao(Date dataFimSessao) {
-        this.dataFimSessao = dataFimSessao;
-    }
-
-    public String getResultadoSessao() {
-        return resultadoSessao;
-    }
-
-    public void setResultadoSessao(String resultadoSessao) {
-        this.resultadoSessao = resultadoSessao;
-    }
-
-    public int getVotosAFavor() {
-        return votosAFavor;
-    }
-
-    public void setVotosAFavor(int votosAFavor) {
-        this.votosAFavor = votosAFavor;
-    }
-
-    public int getVotosContra() {
-        return votosContra;
-    }
-
-    public void setVotosContra(int votosContra) {
-        this.votosContra = votosContra;
-    }
-
-    public String getResultadoFinal() {
-        return resultadoFinal;
-    }
-
-    public void setResultadoFinal(String resultadoFinal) {
-        this.resultadoFinal = resultadoFinal;
-    }
-
-
-
-}
-
-
-===================================================
 ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/model/Pauta.java
 ===================================================
 
@@ -944,36 +1097,15 @@ public class Pauta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPauta;
+
+    @Enumerated(EnumType.STRING)
     private StatusPauta statusPauta;
-    /** Preenchidos ao abrir a sessão de votação; definem a janela em que votos são aceitos. */
+
     private LocalDateTime inicioVotacao;
     private LocalDateTime fimVotacao;
     private String tituloPauta;
     private String descricaoPauta;
     private String categoriaPauta;
-
-
-
-}
-
-
-===================================================
-ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/mappers/SessaoMapper.java
-===================================================
-
-package votacao.votacaoApi.mappers;
-
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-import votacao.votacaoApi.DTO.SessaoRequestDTO;
-import votacao.votacaoApi.model.Sessao;
-
-@Mapper(componentModel = "spring")
-public interface SessaoMapper {
-    SessaoMapper INSTANCE = Mappers.getMapper(SessaoMapper.class);
-    SessaoDTO toDto(Sessao sessao);
-    Sessao toEntity(SessaoDTO sessaoDTO);
-
 
 }
 
@@ -1014,22 +1146,21 @@ package votacao.votacaoApi.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
-import votacao.votacaoApi.DTO.PautaDTO;
 import votacao.votacaoApi.DTO.PautaRequestDTO;
+import votacao.votacaoApi.DTO.PautaResponseDTO;
+import votacao.votacaoApi.DTO.SessaoResponseDTO;
 import votacao.votacaoApi.model.Pauta;
 
 @Mapper(componentModel = "spring")
 public interface PautaMapper {
 
-    PautaMapper INSTANCE = Mappers.getMapper(PautaMapper.class);
+    PautaResponseDTO toPautaResponseDTO(Pauta pauta);
 
-    PautaDTO toDto(Pauta pauta);
-    Pauta toEntity(PautaDTO pautaDTO);
-
-    PautaRequestDTO toPautaRequestDTO(Pauta pauta);
-
+    @Mapping(target = "idPauta", ignore = true)
     Pauta toEntity(PautaRequestDTO pautaRequestDTO);
+
+    SessaoResponseDTO toSessaoResponseDTO(Pauta pauta);
+
 }
 
 ===================================================
@@ -1042,22 +1173,19 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import votacao.votacaoApi.DTO.AbrirSessaoVotacaoDTO;
-import votacao.votacaoApi.DTO.PautaDTO;
-import votacao.votacaoApi.DTO.PautaRequestDTO;
-import votacao.votacaoApi.DTO.ResultadoVotacaoDTO;
+import votacao.votacaoApi.DTO.*;
 import votacao.votacaoApi.Enum.MensagemErro;
 import votacao.votacaoApi.Enum.StatusPauta;
 import votacao.votacaoApi.Enum.TipoVoto;
 import votacao.votacaoApi.exception.PautaException;
 import votacao.votacaoApi.mappers.PautaMapper;
-import votacao.votacaoApi.mappers.SessaoMapper;
 import votacao.votacaoApi.mappers.VotoMapper;
 import votacao.votacaoApi.model.Pauta;
 import votacao.votacaoApi.repository.PautaRepository;
 import votacao.votacaoApi.repository.VotoRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -1066,20 +1194,27 @@ public class PautaService {
     private final PautaRepository pautaRepository;
     private final VotoRepository votoRepository;
     private final PautaMapper pautaMapper;
-    private final SessaoMapper sessaoMapper;
     private final VotoMapper votoMapper;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PautaService.class);
 
 
-    public PautaDTO buscarPauta(Long idPauta) {
+    public PautaResponseDTO buscarPauta(Long idPauta) {
         Pauta pauta = pautaRepository.findById(idPauta)
                 .orElseThrow(() -> new RuntimeException("Pauta não encontrada"));
 
-        return pautaMapper.toDto(pauta);
+        return pautaMapper.toPautaResponseDTO(pauta);
     }
 
-    public Pauta cadastrarPauta(PautaRequestDTO pautaRequestDTO) {
+    public List<PautaResponseDTO> buscarTodasPautas() {
+        List<Pauta> pautas = pautaRepository.findAll();
+
+        return pautas.stream()
+                .map(pautaMapper::toPautaResponseDTO)
+                .toList();
+    }
+
+    public PautaResponseDTO cadastrarPauta(PautaRequestDTO pautaRequestDTO) {
         String titulo = pautaRequestDTO.getTituloPauta();
         if (titulo == null || titulo.isBlank()) {
             throw new PautaException(MensagemErro.DADOS_INVALIDOS, "Título da pauta é obrigatório");
@@ -1090,15 +1225,17 @@ public class PautaService {
 
         Pauta pauta = pautaMapper.toEntity(pautaRequestDTO);
 
-        return pautaRepository.save(pauta);
+        Pauta pautaSalva =  pautaRepository.save(pauta);
+
+        return pautaMapper.toPautaResponseDTO(pautaSalva);
     }
 
     public void apagarPauta(Long idPauta) {
         pautaRepository.deleteById(idPauta);
     }
 
-    public Pauta abrirSessaoVotacao(Long idPauta, AbrirSessaoVotacaoDTO dto) {
-        int minutos = (dto!= null && dto.getDuracaoMinutos()>0 ? dto.getDuracaoMinutos():1);
+    public SessaoResponseDTO abrirSessaoVotacao(Long idPauta, AbrirSessaoVotacaoDTO dto) {
+        int minutos = (dto!= null && dto.getDuracaoMinutos()>0 ? dto.getDuracaoMinutos():5);
 
         Pauta pauta = pautaRepository.findById(idPauta)
                 .orElseThrow(() -> new PautaException(MensagemErro.PAUTA_NAO_ENCONTRADA, "id: " + idPauta));
@@ -1110,16 +1247,23 @@ public class PautaService {
             throw new PautaException(MensagemErro.SESSAO_JA_EM_ANDAMENTO);
         }
 
+        if(pauta.getStatusPauta() == StatusPauta.CONCLUIDA){
+            throw new PautaException(MensagemErro.PAUTA_JA_CONCLUIDA);
+        }
+
         pauta.setInicioVotacao(agora);
         pauta.setFimVotacao(agora.plusMinutes(minutos));
         pauta.setStatusPauta(StatusPauta.EM_ANDAMENTO);
 
         Pauta salva = pautaRepository.save(pauta);
         LOGGER.info("Sessão de votação aberta para pauta {} até {}", idPauta, salva.getFimVotacao());
-        return salva;
+
+        SessaoResponseDTO sessaoResponse =  pautaMapper.toSessaoResponseDTO(salva);
+
+        return sessaoResponse;
     }
 
-    public Pauta fecharSessaoVotacao(Long idPauta) {
+    public SessaoResponseDTO fecharSessaoVotacao(Long idPauta) {
         Pauta pauta = pautaRepository.findById(idPauta)
                 .orElseThrow(() -> new PautaException(MensagemErro.PAUTA_NAO_ENCONTRADA, "id: " + idPauta));
 
@@ -1133,7 +1277,10 @@ public class PautaService {
         pauta.setStatusPauta(StatusPauta.CONCLUIDA);
         Pauta salva = pautaRepository.save(pauta);
         LOGGER.info("Sessão de votação encerrada (CONCLUIDA) para pauta {}", idPauta);
-        return salva;
+
+        SessaoResponseDTO sessaoResponse = pautaMapper.toSessaoResponseDTO(salva);
+
+        return sessaoResponse;
     }
 
     public ResultadoVotacaoDTO obterResultadoVotacao(Long idPauta) {
@@ -1148,9 +1295,9 @@ public class PautaService {
         if (total == 0) {
             resultado = "SEM_VOTOS";
         } else if (votosSim > votosNao) {
-            resultado = "SIM";
+            resultado = "APROVADO";
         } else if (votosNao > votosSim) {
-            resultado = "NAO";
+            resultado = "REPROVADO";
         } else {
             resultado = "EMPATE";
         }
@@ -1201,7 +1348,7 @@ public class VotoService {
 
     private static final Logger logger = LoggerFactory.getLogger(VotoService.class);
 
-    public List<VotoDTO> buscarVotosPeloCpf(@RequestParam String cpfAssociado) {
+    public List<VotoDTO> buscarVotos(@RequestParam String cpfAssociado) {
         List<Voto> listaVotosEncontrados = votoRepository.findByCpfAssociado(cpfAssociado);
 
         return votoMapper.toVotoDTOs(listaVotosEncontrados);
@@ -1297,6 +1444,36 @@ public class PautaException extends RuntimeException {
 
 
 ===================================================
+ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/exception/RestExceptionHandler.java
+===================================================
+
+package votacao.votacaoApi.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import votacao.votacaoApi.DTO.ErroValidacaoDTO;
+
+import java.util.List;
+
+@RestControllerAdvice
+public class RestExceptionHandler {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public List<ErroValidacaoDTO> tratarErroValidacao(MethodArgumentNotValidException ex) {
+
+        return ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(erro -> new ErroValidacaoDTO(erro.getField(), erro.getDefaultMessage()))
+                .toList();
+    }
+}
+
+
+===================================================
 ARQUIVO: /Users/tostes/Desktop/projects/votacao-api/src/main/java/votacao/votacaoApi/exception/GlobalExceptionHandler.java
 ===================================================
 
@@ -1343,7 +1520,6 @@ public class GlobalExceptionHandler {
 
         String message = "Erro ao processar a requisição. Verifique os valores enviados.";
 
-        // Detecta se o erro foi causado pelo Enum TipoVoto
         if (ex.getMessage() != null && ex.getMessage().contains("TipoVoto")) {
             message = "Valor inválido para o campo 'Voto'. Os valores aceitos são: SIM ou NAO.";
         }
